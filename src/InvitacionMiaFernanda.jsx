@@ -429,6 +429,15 @@ export default function InvitacionMiaFernanda() {
               <p className="text-sm text-white/80">
                 ¡Camelia está emocionada por celebrar contigo!
               </p>
+
+              <a
+                href="https://wa.me/529514121200?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Camelia%20%F0%9F%8E%89"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block w-full rounded-2xl border border-green-200/25 bg-green-400/20 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-green-400/30 active:scale-[0.99]"
+              >
+                Confirmar asistencia por WhatsApp ✅
+              </a>
             </div>
           </div>
         </section>
