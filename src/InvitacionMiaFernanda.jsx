@@ -415,7 +415,7 @@ export default function InvitacionMiaFernanda() {
                   <div className="w-[30%] max-w-[110px] overflow-hidden rounded-[38%]">
                     <img
                       src="/mia_01.png"
-                      alt="Mía Fernanda en placa"
+                      alt="Camelia en placa"
                       className="h-auto w-full object-contain"
                       loading="lazy"
                     />
@@ -427,7 +427,7 @@ export default function InvitacionMiaFernanda() {
             {/* Footer */}
             <div className="mt-6 text-center">
               <p className="text-sm text-white/80">
-                ¡Mía Fernanda está emocionada por celebrar contigo!
+                ¡Camelia está emocionada por celebrar contigo!
               </p>
             </div>
           </div>
@@ -587,7 +587,7 @@ function AuroraHeader() {
           <div className="absolute inset-x-0 top-[43%] flex -translate-y-1/2 justify-center px-4">
             <img
               src="/mia_01.png"
-              alt="Mía Fernanda"
+              alt="Camelia"
               className="sticker-pop-in w-[68%] max-w-[340px] object-contain drop-shadow-[0_8px_12px_rgba(0,0,0,0.55)]"
               loading="eager"
             />
