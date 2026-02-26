@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import CountdownTimer from "./CountdownTimer";
 
 export default function InvitacionMiaFernanda() {
   // =========================
@@ -8,23 +9,25 @@ export default function InvitacionMiaFernanda() {
     () => ({
       festejada: "Mía Fernanda",
       edad: "8 Años",
-      fecha: "11 de marzo 2026",
-      hora: "10:00 a.m.",
-      lugar: "Colegio Jaques Roussea",
+      fecha: "Domingo, 05 de abril 2026",
+      hora: "2:00 p.m.",
+      lugar: "21 de Marzo, Guelatao 132, 71228 Santa Lucía del Camino, Oax.",
+      mapsLink: "https://share.google/J7Vn0EB9LgaVYxK1U",
+      eventISO: "2026-04-05T14:00:00-06:00",
     }),
     []
   );
 
   const calendarLink = useMemo(() => {
-    const title = encodeURIComponent("Cumpleaños #8 de Mía Fernanda");
+    const title = encodeURIComponent("Cumpleaños de Camelia");
     const details = encodeURIComponent(
-      "Acompáñanos a celebrar el cumpleaños de Mía Fernanda con una aventura invernal llena de magia."
+      "Acompáñanos a celebrar el cumpleaños de Camelia."
     );
     const location = encodeURIComponent(DATA.lugar);
 
-    // Hora local de México (CDMX): UTC-6 para marzo 2026
-    const start = "20260311T160000Z";
-    const end = "20260311T190000Z";
+    // 05 abril 2026 2:00 p.m. (UTC-6) => 20:00Z
+    const start = "20260405T200000Z";
+    const end = "20260405T230000Z";
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
   }, [DATA.lugar]);
@@ -34,8 +37,8 @@ export default function InvitacionMiaFernanda() {
   // =========================
   const INTRO_IMAGE_SRC = "/intro_01.png"; // public/intro_01.png
   const PLAY_IMAGE_SRC = "/dale_paly.png"; // public/dale_paly.png
-  const YOUTUBE_VIDEO_ID = "jcllZ4jSIGI";
-  const YOUTUBE_EMBED_SRC = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&start=205&mute=1&controls=1&rel=0&playsinline=1`;
+  const YOUTUBE_VIDEO_ID = "dwL2zgUApK8";
+  const YOUTUBE_EMBED_SRC = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&start=7&mute=1&controls=1&rel=0&playsinline=1`;
   const AUDIO_SRC = "/tema.mp3"; // public/tema.mp3 (sin audio en el video)
 
   const [phase, setPhase] = useState("intro"); // "intro" | "video" | "invite"
@@ -119,10 +122,10 @@ export default function InvitacionMiaFernanda() {
     startAudio();
     clearAutoInviteTimer();
 
-    // Inicia en 3:25 y dura hasta 3:40 => 15s
+    // Inicia en 00:07 y dura hasta 00:15 => 8s
     autoInviteTimeoutRef.current = window.setTimeout(() => {
       goInvite();
-    }, 15_000);
+    }, 8_000);
 
     return () => {
       clearCaptionTimer();
@@ -362,8 +365,11 @@ export default function InvitacionMiaFernanda() {
               <InfoRow label="⏰ Hora" value={DATA.hora} />
               <InfoRow label="📍 Lugar" value={DATA.lugar} />
             </div>
+
+            <CountdownTimer targetISO={DATA.eventISO} />
+
             {/* CTA */}
-            <div className="mt-6">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <a
                 href={calendarLink}
                 target="_blank"
@@ -371,6 +377,14 @@ export default function InvitacionMiaFernanda() {
                 className="block w-full rounded-2xl border border-white/15 bg-white/10 px-5 py-4 text-center text-sm font-semibold text-white hover:bg-white/15 active:scale-[0.99]"
               >
                 Agregar al calendario 📅
+              </a>
+              <a
+                href={DATA.mapsLink}
+                target="_blank"
+                rel="noreferrer"
+                className="block w-full rounded-2xl border border-emerald-200/25 bg-emerald-300/15 px-5 py-4 text-center text-sm font-semibold text-white hover:bg-emerald-300/25 active:scale-[0.99]"
+              >
+                Ver en Google Maps 📍
               </a>
             </div>
 
@@ -410,6 +424,15 @@ export default function InvitacionMiaFernanda() {
               <p className="text-sm text-white/80">
                 ¡Mía Fernanda está emocionada por celebrar contigo!
               </p>
+
+              <a
+                href="https://wa.me/529514121200?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Camelia%20%F0%9F%8E%89"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block w-full rounded-2xl border border-green-200/25 bg-green-400/20 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-green-400/30 active:scale-[0.99]"
+              >
+                Confirmar asistencia por WhatsApp ✅
+              </a>
             </div>
           </div>
         </section>
