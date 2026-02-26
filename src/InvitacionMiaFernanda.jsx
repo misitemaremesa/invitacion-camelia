@@ -29,7 +29,7 @@ export default function InvitacionMiaFernanda() {
     const end = "20260405T230000Z";
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
-  }, [DATA.lugar, DATA.padres]);
+  }, [DATA.lugar]);
 
   // =========================
   // VIDEO + AUDIO SETTINGS
@@ -363,11 +363,6 @@ export default function InvitacionMiaFernanda() {
               <InfoRow label="📅 Fecha" value={DATA.fecha} />
               <InfoRow label="⏰ Hora" value={DATA.hora} />
               <InfoRow label="📍 Lugar" value={DATA.lugar} />
-              <InfoRow
-                label="💌 Invitados por"
-                value={DATA.padres}
-                stacked
-              />
             </div>
 
             <CountdownTimer targetISO={DATA.eventISO} />
