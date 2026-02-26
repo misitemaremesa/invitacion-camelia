@@ -29,7 +29,7 @@ export default function InvitacionMiaFernanda() {
     const end = "20260405T230000Z";
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
-  }, [DATA.lugar]);
+  }, [DATA.lugar, DATA.padres]);
 
   // =========================
   // VIDEO + AUDIO SETTINGS
@@ -363,6 +363,11 @@ export default function InvitacionMiaFernanda() {
               <InfoRow label="📅 Fecha" value={DATA.fecha} />
               <InfoRow label="⏰ Hora" value={DATA.hora} />
               <InfoRow label="📍 Lugar" value={DATA.lugar} />
+              <InfoRow
+                label="💌 Invitados por"
+                value={DATA.padres}
+                stacked
+              />
             </div>
 
             <CountdownTimer targetISO={DATA.eventISO} />
@@ -409,7 +414,7 @@ export default function InvitacionMiaFernanda() {
                   <div className="w-[30%] max-w-[110px] overflow-hidden rounded-[38%]">
                     <img
                       src="/mia_01.png"
-                      alt="Mía Fernanda en placa"
+                      alt="Camelia en placa"
                       className="h-auto w-full object-contain"
                       loading="lazy"
                     />
@@ -421,7 +426,7 @@ export default function InvitacionMiaFernanda() {
             {/* Footer */}
             <div className="mt-6 text-center">
               <p className="text-sm text-white/80">
-                ¡Mía Fernanda está emocionada por celebrar contigo!
+                ¡Camelia está emocionada por celebrar contigo!
               </p>
 
               <a
@@ -485,11 +490,88 @@ export default function InvitacionMiaFernanda() {
    UI Subcomponents
    ========================= */
 
-function InfoRow({ label, value }) {
+function InfoRow({ label, value, stacked = false }) {
   return (
-    <div className="flex items-start justify-between gap-3">
+    <div
+      className={[
+        "flex items-start gap-3",
+        stacked ? "flex-col" : "justify-between",
+      ].join(" ")}
+    >
       <span className="text-sm text-white/70">{label}</span>
-      <span className="text-right text-sm font-medium text-white">{value}</span>
+      <span className={[
+        "text-sm font-medium text-white",
+        stacked ? "text-left" : "text-right",
+      ].join(" ")}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function getTimeRemaining(targetISO) {
+  const targetMs = new Date(targetISO).getTime();
+  const nowMs = Date.now();
+  const diff = targetMs - nowMs;
+
+  if (Number.isNaN(targetMs) || diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, done: true };
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return { days, hours, minutes, seconds, done: false };
+}
+
+function CountdownTimer({ targetISO }) {
+  const [remaining, setRemaining] = useState(() => getTimeRemaining(targetISO));
+
+  useEffect(() => {
+    const tick = () => {
+      setRemaining(getTimeRemaining(targetISO));
+    };
+
+    tick();
+    const timer = window.setInterval(tick, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [targetISO]);
+
+  return (
+    <div className="mt-4 rounded-2xl border border-cyan-100/20 bg-slate-900/40 p-4">
+      <p className="text-center text-sm font-semibold text-cyan-100">
+        ⏳ Cuenta regresiva para la fiesta
+      </p>
+
+      {remaining.done ? (
+        <p className="mt-2 text-center text-sm text-white">
+          ¡La fiesta ya comenzó! 🎉
+        </p>
+      ) : (
+        <div className="mt-3 grid grid-cols-4 gap-2 text-center">
+          <TimeBox label="Días" value={remaining.days} />
+          <TimeBox label="Horas" value={remaining.hours} />
+          <TimeBox label="Min" value={remaining.minutes} />
+          <TimeBox label="Seg" value={remaining.seconds} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TimeBox({ label, value }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-black/20 px-2 py-3">
+      <p className="text-xl font-extrabold leading-none text-white">
+        {String(value).padStart(2, "0")}
+      </p>
+      <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">
+        {label}
+      </p>
     </div>
   );
 }
@@ -580,7 +662,7 @@ function AuroraHeader() {
           <div className="absolute inset-x-0 top-[43%] flex -translate-y-1/2 justify-center px-4">
             <img
               src="/mia_01.png"
-              alt="Mía Fernanda"
+              alt="Camelia"
               className="sticker-pop-in w-[68%] max-w-[340px] object-contain drop-shadow-[0_8px_12px_rgba(0,0,0,0.55)]"
               loading="eager"
             />
